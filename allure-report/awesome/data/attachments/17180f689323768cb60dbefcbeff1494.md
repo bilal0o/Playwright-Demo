@@ -1,0 +1,118 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: handleautosuggestion.spec.js >> another test
+- Location: tests/handleautosuggestion.spec.js:15:6
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: page.waitForSelector: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('//li[@role=\'presentation\']') to be visible
+    5 × locator resolved to 3 elements. Proceeding with the first one: <li id="YMXe" data-view-type="1" class="sbct PZPZlf" role="presentation" data-attrid="AutocompletePrediction" data-entityid="autocomplete_user_feedback_kp_id">…</li>
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Gmail" [ref=e8] [cursor=pointer]:
+          - /url: https://mail.google.com/mail/&ogbl
+        - link "Search for Images" [ref=e10] [cursor=pointer]:
+          - /url: https://www.google.com/imghp?hl=en&ogbl
+          - text: Images
+      - button "Google apps" [ref=e13] [cursor=pointer]
+      - link "Sign in" [ref=e18] [cursor=pointer]:
+        - /url: https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e
+  - img "Google" [ref=e22]
+  - search [ref=e30]:
+    - generic [ref=e32]:
+      - generic [ref=e34]:
+        - button "Add files and tools" [ref=e39] [cursor=pointer]
+        - combobox "Search" [active] [ref=e44]: Mukesh Otwani
+        - link "AI Mode" [ref=e46] [cursor=pointer]
+      - generic [ref=e54]:
+        - button "Google Search" [ref=e55] [cursor=pointer]
+        - button "I'm Feeling Lucky" [ref=e56] [cursor=pointer]
+  - generic [ref=e59]:
+    - text: "Google offered in:"
+    - link "اردو" [ref=e60] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_KZK58A2h5llnAuPoAO5g8G-iGpE%3D&hl=ur&source=homepage&sa=X&ved=0ahUKEwiMv5unt4SXAxVwVaQEHWKPHCQQ2ZgBCCY
+    - link "پښتو" [ref=e61] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_KZK58A2h5llnAuPoAO5g8G-iGpE%3D&hl=ps&source=homepage&sa=X&ved=0ahUKEwiMv5unt4SXAxVwVaQEHWKPHCQQ2ZgBCCc
+    - link "سنڌي" [ref=e62] [cursor=pointer]:
+      - /url: https://www.google.com/setprefs?sig=0_KZK58A2h5llnAuPoAO5g8G-iGpE%3D&hl=sd&source=homepage&sa=X&ved=0ahUKEwiMv5unt4SXAxVwVaQEHWKPHCQQ2ZgBCCg
+  - contentinfo [ref=e64]:
+    - generic [ref=e65]: Pakistan
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - link "About" [ref=e68] [cursor=pointer]:
+          - /url: https://about.google/?utm_source=google-PK&utm_medium=referral&utm_campaign=hp-footer&fg=1
+        - link "Advertising" [ref=e69] [cursor=pointer]:
+          - /url: https://www.google.com/intl/en_pk/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1
+        - link "Business" [ref=e70] [cursor=pointer]:
+          - /url: https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1
+        - link "How Search works" [ref=e71] [cursor=pointer]:
+          - /url: https://google.com/search/howsearchworks/?fg=1
+      - generic [ref=e72]:
+        - link "Privacy" [ref=e73] [cursor=pointer]:
+          - /url: https://policies.google.com/privacy?hl=en-PK&fg=1
+        - link "Terms" [ref=e74] [cursor=pointer]:
+          - /url: https://policies.google.com/terms?hl=en-PK&fg=1
+        - button "Settings" [ref=e78] [cursor=pointer]
+```
+
+# Test source
+
+```ts
+  1  | import {test , expect} from '@playwright/test';
+  2  | 
+  3  | test('auto suggestion in playwright', async({page})=>{
+  4  | 
+  5  |     await page.goto('https://www.google.com/')
+  6  |     await page.locator("textarea[name='q']").type('shah rukh khan');
+  7  |     await page.waitForSelector("//li[@role='presentation']");
+  8  |     await page.keyboard.press('ArrowDown');
+  9  |     await page.keyboard.press('ArrowDown');
+  10 |     await page.keyboard.press('Enter');
+  11 | 
+  12 | });
+  13 | 
+  14 | 
+  15 | test.only('another test', async ({page}) =>{
+  16 | 
+  17 |     await page.goto('https://www.google.com');
+  18 |     await page.locator("textarea[name='q']").type("Mukesh Otwani");
+> 19 |     await page.waitForSelector("//li[@role='presentation']");
+     |                ^ Error: page.waitForSelector: Test timeout of 30000ms exceeded.
+  20 | 
+  21 |      const elements = await page.$$("//li[@role='presentation']")
+  22 | 
+  23 |      for(let i=0; i<elements.length; i++)
+  24 |       {
+  25 |         const text=await elements[i].textContent();
+  26 | 
+  27 |         if(text.includes("playwright")){
+  28 |             await elements[i].click();
+  29 |           break; 
+  30 |             
+  31 |         }
+  32 | 
+  33 |       }
+  34 | 
+  35 | });
+```

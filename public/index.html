@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Form</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #F4F5F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .card {
+    background: #fff;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 380px;
+  }
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #222;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+    font-weight: 600;
+  }
+  input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  input:focus {
+    outline: none;
+    border-color: #6366F1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #6366F1;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover { background: #4F46E5; }
+  #result {
+    margin-top: 16px;
+    padding: 10px;
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-radius: 6px;
+    color: #166534;
+    font-size: 14px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Test Form</h2>
+  <form id="testForm">
+    <label for="name">Name</label>
+    <input type="text" data-testid="name" id="name" name="name" placeholder="Enter your name" required>
+
+
+
+    <label for="email">Email</label>
+    <input type="email" data-testid="email" id="email" name="email" placeholder="Enter your email">
+
+     <label for="password">Password</label>
+    <input type="password" data-testid="password" id="password" name="password" placeholder="Enter your password">
+
+    <button data-testid="submit-button" type="submit">Submit</button>
+  </form>
+  <div id="result"></div>
+</div>
+
+<script>
+  document.getElementById('testForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var result = document.getElementById('result');
+    result.style.display = 'block';
+    result.textContent = 'Submitted — Name: ' + name + ', Email: ' + email + ', Password: ' + password;
+  });
+</script>
+
+</body>
+</html>

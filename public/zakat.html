@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zakat</title>
+</head>
+<body>
+<h1>Calculate Zakat</h1>
+
+<form aria-label="Calculate Zakat">
+<label for="wealth">Enter the whole amount of wealth you have</label>
+<input id="wealth" type="number" min="0" />
+<button type="submit">Calculate Zakat</button>
+</form>
+
+<p>Result: <span data-testid="result"></span></p>
+
+<script>
+document.querySelector('form').addEventListener('submit', (event) => {
+event.preventDefault();
+const wealth = Number(document.getElementById('wealth').value);
+document.querySelector('[data-testid="result"]').textContent = wealth * 0.025;
+});
+</script>
+</body>
+</html>

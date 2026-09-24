@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Playwright Practice</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+<main class="min-h-screen flex items-center justify-center p-6 sm:p-10">
+<div class="w-full max-w-md">
+<div class="mb-8">
+<p data-testid="locater" class="text-indigo-400 font-semibold">LOCATOR PRACTICE 01</p>
+<h1 data-testid="heading" class="mt-2 text-3xl font-bold">Welcome back</h1>
+<p data-testid="signin-text" class="mt-2 text-slate-400">Sign in to continue to your workspace.</p>
+</div>
+
+      <form id="loginForm" aria-label="Login Form" class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 sm:p-8 shadow-2xl">
+        <div class="space-y-5">
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-slate-300">Email</label>
+            <input id="email" type="email" placeholder="Enter your email"
+              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
+          </div>
+
+          <div>
+            <label for="password" class="mb-2 block text-sm font-medium text-slate-300">Password</label>
+            <input id="password" type="password" placeholder="Enter your password"
+              class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
+          </div>
+
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-3 text-sm text-slate-400">
+              <input id="remember" type="checkbox" class="h-4 w-4 rounded border-slate-600 bg-slate-800 accent-indigo-500">
+              Remember me
+            </label>
+            <a href="#forgot" class="text-sm font-medium text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+          </div>
+
+          <button type="submit" title="Submit login form"
+            class="w-full rounded-xl bg-indigo-600 py-3.5 font-semibold shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-500 active:scale-[.99]">
+            Login
+          </button>
+        </div>
+
+        <p id="message" data-testid="login-message" class="mt-5 min-h-6 text-center text-sm font-medium"></p>
+      </form>
+
+      <p class="mt-6 text-center text-xs text-slate-500">Practice credentials: user@test.com / 123456</p>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const message = document.getElementById('message');
+      message.textContent = email === 'user@test.com' && password === '123456'
+? 'Login successful'
+        : 'Invalid email or password';
+    });
+  </script>
+</body>
+</html>
